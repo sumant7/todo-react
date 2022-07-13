@@ -6,7 +6,11 @@ export const AddTodo = ({addTodo}) => {
     const submit=(e)=>{
         e.preventDefault(); //to stop reloading
         if(!title || !desc) alert("Title or Decription can't be empty")
+        else{
         addTodo(title,desc);
+        setTitle("")
+        setDesc("")  //to make input empty after submit
+        }
     }
     return (
         <div className='container'>

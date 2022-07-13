@@ -1,9 +1,15 @@
-import './App.css';
+
 import Header from './Components/Header'
 import {Footer}  from './Components/Footer';
 import {Todos} from './Components/Todos';
 import { AddTodo } from './Components/AddTodo';
+import { About } from './Components/About';
 import React,{useState, useEffect} from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 function App() {
   let initTodo
@@ -18,7 +24,6 @@ function App() {
 
 
   const onDelete= (todo)=>{
-    console.log("Delete", todo)
     //simply deleteing won't work, use Useset
 
     setTodos(todos.filter((e)=>{ //e represents elemets of an array
@@ -29,8 +34,6 @@ function App() {
   }
 
   const addTodo=(title,desc)=>{
-
-    console.log("Adding",title , desc)
     let sno
     if(todos.length===0) sno=0;
     else sno=todos[todos.length -1].sno + 1
@@ -40,7 +43,6 @@ function App() {
       desc: desc
     }
     setTodos([...todos, myTodo])
-    console.log(myTodo)
   }
 
   //the setTodos function is used for changing the state of todos array
@@ -50,10 +52,19 @@ function App() {
   }, [todos])
   return (
     <>
+    <BrowserRouter>
       <Header title="Todo List" search ={false}/>
+      <Routes>
+      <Route path="/" element={<>
       <AddTodo addTodo={addTodo}/>
       <Todos todos={todos} onDelete={onDelete}/>
+      </>
+      }/>     
+      <Route path="/about" element={<About/>}/>         
+      </Routes>
+
       <Footer/>
+      </BrowserRouter>
     </>
   );
 }
